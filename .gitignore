@@ -2,6 +2,16 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.sqlite3
+*migrations
+*static
+*media_files
+database
+*media
+.idea
+.env
+venv
+*.iml
 
 # C extensions
 *.so

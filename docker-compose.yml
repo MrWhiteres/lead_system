@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  database:
+    image: postgres:15-alpine3.18
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      LANG: en_US.utf8
+      LC_ALL: en_US.utf8
+    volumes:
+      - type: bind
+        source: ./database/pgdata
+        target: /var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -U ${DATABASE_USER} -d ${DATABASE}'" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web-app:
+    container_name: django_api
+    build:
+      context: ./crm
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - target: 8000
+        published: 8000
+    volumes:
+      - type: bind
+        source: ./crm
+        target: /crm
+      - type: bind
+        source: ./crm/static
+        target: /crm/static
+      - type: bind
+        source: ./media_files
+        target: /crm/media
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      KEY: ${DJANGO_KEY}
+      DEBUG: ${DEBUG_TRUE}
+      DB_NAME: ${DATABASE}
+      DB_USER: ${DATABASE_USER}
+      DB_PASSWORD: ${DATABASE_PASSWORD}
+      DB_HOST: database
+    command: ./dev.sh
+
+
+volumes:
+  PGDATA:

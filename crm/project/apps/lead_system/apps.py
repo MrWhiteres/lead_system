@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class LidSystemConfig(AppConfig):
+class LeadSystemConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'lid_system'
+    name = 'project.apps.lead_system'

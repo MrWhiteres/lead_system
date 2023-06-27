@@ -50,7 +50,7 @@ DOWNLOADED_APPS = [
 ]
 
 DEV_APPS = [
-
+    'project.apps.lead_system',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + DOWNLOADED_APPS + DEV_APPS

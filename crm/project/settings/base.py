@@ -46,14 +46,15 @@ DJANGO_APPS = [
 DOWNLOADED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
+    'drf_yasg',
     'corsheaders'
 ]
 
-DEV_APPS = [
-    'project.apps.lead_system',
+PROJECT_APPS = [
+    'project.apps.lead_system.apps.LeadSystemConfig',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + DOWNLOADED_APPS + DEV_APPS
+INSTALLED_APPS = DJANGO_APPS + DOWNLOADED_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

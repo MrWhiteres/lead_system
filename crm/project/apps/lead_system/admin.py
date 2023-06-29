@@ -10,4 +10,5 @@ class LeadAdmin(admin.ModelAdmin):
         ('Date info:', {'fields': ['create_at']})
     )
     readonly_fields = ['create_at']
+    list_display = ['name', 'email', 'phone', 'ip_address']
     models = models.Lead

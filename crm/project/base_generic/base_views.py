@@ -3,6 +3,7 @@ from rest_framework.generics import (
     UpdateAPIView, DestroyAPIView,
     ListAPIView,
 )
+from rest_framework.serializers import Serializer
 from rest_framework.views import (
     APIView
 )
@@ -12,8 +13,7 @@ class BaseAPIView(APIView):
     """
     Base parent view
     """
-    permission_classes = []
-    serializer_class = []
+    serializer_class = Serializer
 
     def serializer_data(self, data: dict) -> dict | bool:
         """
@@ -21,10 +21,9 @@ class BaseAPIView(APIView):
         :param data:
         :return: dict or boolean
         """
-        for serializer in self.serializer_class:
-            data_serialize = serializer(data=data)
-            if data_serialize.is_valid():
-                return {**data_serialize.data}
+        data_serialize = self.serializer_class(data=data)
+        if data_serialize.is_valid():
+            return {**data_serialize.validated_data}
         return False
 
 

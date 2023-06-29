@@ -11,6 +11,7 @@ class Lead(models.Model):
     class Meta:
         verbose_name = 'Lid'
         verbose_name_plural = 'Lids'
+        app_label = 'lead_system'
 
     def __str__(self) -> str:
-        return self.email
+        return f'{self.email}'

@@ -4,6 +4,7 @@ from rest_framework.generics import (
     ListAPIView,
 )
 from rest_framework.serializers import Serializer
+from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from rest_framework.views import (
     APIView
 )
@@ -14,8 +15,9 @@ class BaseAPIView(APIView):
     Base parent view
     """
     serializer_class = Serializer
+    throttle_classes = [UserRateThrottle, AnonRateThrottle]
 
-    def serializer_data(self, data: dict) -> dict | bool:
+    def serializer_data(self, data: dict) -> tuple:
         """
         Base serializer method
         :param data:
@@ -23,8 +25,8 @@ class BaseAPIView(APIView):
         """
         data_serialize = self.serializer_class(data=data)
         if data_serialize.is_valid():
-            return {**data_serialize.validated_data}
-        return False
+            return {**data_serialize.validated_data}, False
+        return data_serialize.errors, True
 
 
 class BaseCreateAPIView(BaseAPIView, CreateAPIView):

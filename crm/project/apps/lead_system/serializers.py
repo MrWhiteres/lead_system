@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from .logic.get_leads import get_all_leads
 from .models import Lead
-from .serializer_utils.validate import validator_lead
+from .serializer_utils.validate import validator_lead, clear_duplicates
 
 
 class LeadSerializer(serializers.ModelSerializer):
@@ -43,7 +43,7 @@ class ListLeadSerializer(serializers.Serializer):
         if len(validated_leads) == 0:
             self._errors['leads'] = errors_leads
             return False
-        self._validated_data = {'leads': validated_leads}
+        self._validated_data = {'leads': clear_duplicates(validated_leads)}
         if not is_valid:
             self._errors['leads'] = self.errors
         return is_valid or len(validated_leads) > 0

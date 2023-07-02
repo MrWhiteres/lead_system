@@ -11,7 +11,6 @@ class Lead(models.Model):
     class Meta:
         verbose_name = 'Lid'
         verbose_name_plural = 'Lids'
-        app_label = 'lead_system'
 
     def __str__(self) -> str:
         return f'{self.name}'
@@ -25,7 +24,6 @@ class LeadSettings(models.Model):
     class Meta:
         verbose_name = 'Lid settings'
         verbose_name_plural = 'Lid settings'
-        app_label = 'lead_system'
 
     def __str__(self) -> str:
         return f'{self.lead.name} - settings'

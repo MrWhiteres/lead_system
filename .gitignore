@@ -3,7 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.sqlite3
-*migrations
+crm/project/apps/lead_system/migrations/*
+!crm/project/apps/lead_system/migrations/__init__.py
 *static
 *media_files
 database

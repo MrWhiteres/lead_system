@@ -59,3 +59,20 @@ def validator_lead(data: dict, leads: dict) -> tuple:
         return data, have_error
     validate_errors = validate_fields(data, leads)
     return (validate_errors, len(validate_errors) > 0) if len(validate_errors) > 0 else (data, False)
+
+
+def clear_duplicates_with_exist_data(data: list) -> list:
+    exist_data = []
+    result = []
+    for elements in data:
+        if elements['ip_address'] not in exist_data and elements['email'] not in exist_data and elements['phone'] not in exist_data:
+            exist_data.append(elements['ip_address'])
+            exist_data.append(elements['email'])
+            exist_data.append(elements['phone'])
+            result.append(elements)
+    return result
+
+
+def clear_duplicates(data: list) -> list:
+    data = [dict(clear_data) for clear_data in {tuple(data.items()) for data in data}]
+    return clear_duplicates_with_exist_data(data)

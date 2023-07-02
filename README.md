@@ -89,4 +89,4 @@ If you would like to contribute to the project, please follow these steps:
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE). Feel free to use and modify the code according to your needs.
+This project is licensed under the [GNU General Public License v3.0](LICENSE). Feel free to use and modify the code according to your needs.

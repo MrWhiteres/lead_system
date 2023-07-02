@@ -46,14 +46,15 @@ DJANGO_APPS = [
 DOWNLOADED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
-    'corsheaders'
+    'drf_yasg',
+    'corsheaders',
 ]
 
-DEV_APPS = [
-
+PROJECT_APPS = [
+    'project.apps.lead_system.apps.LeadSystemConfig',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + DOWNLOADED_APPS + DEV_APPS
+INSTALLED_APPS = DJANGO_APPS + DOWNLOADED_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -137,3 +138,14 @@ STATIC_ROOT = BASE_DIR / 'static'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '50/day',
+        'user': '500/day'
+    }
+}
